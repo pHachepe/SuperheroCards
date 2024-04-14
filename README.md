@@ -25,3 +25,21 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+# SuperHeroCards - Angular
+
+npx @angular/cli@16 new SuperHeroCards --routing=true --style=css
+
+cd SuperHeroCards/
+
+ng generate module core
+ng generate interceptor core/auth
+
+ng generate module shared
+ng generate component shared/components/loader --export
+
+ng generate module modules/superheroes --routing=true
+ng generate component modules/superheroes/components/list-superheroes
+ng generate component modules/superheroes/components/edit-superhero
+ng generate component modules/superheroes/components/create-superhero
+ng generate class modules/superheroes/models/superhero --type=model
+ng generate service modules/superheroes/services/superhero
