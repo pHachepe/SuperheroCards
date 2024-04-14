@@ -32,7 +32,7 @@ npx @angular/cli@16 new SuperHeroCards --routing=true --style=css
 cd SuperHeroCards/
 
 ng generate module core
-ng generate interceptor core/auth
+ng generate interceptor core/api
 
 ng generate module shared
 ng generate component shared/components/loader --export
