@@ -43,3 +43,5 @@ ng generate component modules/superheroes/components/edit-superhero
 ng generate component modules/superheroes/components/create-superhero
 ng generate class modules/superheroes/models/superhero --type=model
 ng generate service modules/superheroes/services/superhero
+
+ng generate environments
