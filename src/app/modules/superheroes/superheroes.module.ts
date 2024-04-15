@@ -13,6 +13,7 @@ import { ListSuperheroesComponent } from './components/list-superheroes/list-sup
 import { SuperHeroCardComponent } from './components/super-hero-card/super-hero-card.component';
 import { SuperheroesRoutingModule } from './superheroes-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatPaginatorModule,
     MatInputModule,
+    SharedModule,
   ],
 })
 export class SuperheroesModule {}
