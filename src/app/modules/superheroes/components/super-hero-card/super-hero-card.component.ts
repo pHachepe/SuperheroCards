@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { SuperHero } from '../../models/superhero.model';
 
 @Component({
@@ -7,6 +8,14 @@ import { SuperHero } from '../../models/superhero.model';
 })
 export class SuperHeroCardComponent {
   @Input() superHero!: SuperHero;
+
+  constructor(private router: Router) {}
+
+  navigateToEdit() {
+    this.router.navigate(['/superheroes/edit', this.superHero.id], {
+      state: { superhero: this.superHero },
+    });
+  }
 
   get powerStats() {
     return [

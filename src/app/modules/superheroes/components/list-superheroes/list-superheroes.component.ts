@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { PagedResponse } from 'src/app/shared/models/paged-response.model';
 import { SuperHero } from '../../models/superhero.model';
 import { SuperheroService } from '../../services/superhero.service';
 
@@ -8,7 +13,7 @@ import { SuperheroService } from '../../services/superhero.service';
 })
 export class ListSuperheroesComponent implements OnInit {
   superHeroes: SuperHero[] = [];
-  filter: string = '';
+  filter = new FormControl('');
   currentPage: number = 1;
   itemsPerPage: number = 10;
   total: number = 0;
@@ -16,19 +21,30 @@ export class ListSuperheroesComponent implements OnInit {
   constructor(private superHeroService: SuperheroService) {}
 
   ngOnInit(): void {
+    this.filter.valueChanges
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe(() => {
+        this.currentPage = 1;
+        this.loadHeroes();
+      });
+
     this.loadHeroes();
   }
 
-  loadHeroes(page: number = this.currentPage): void {
-    this.currentPage = page;
+  loadHeroes(event?: PageEvent): void {
+    if (event) {
+      this.currentPage = event.pageIndex + 1;
+      this.itemsPerPage = event.pageSize;
+    }
+
     this.superHeroService
-      .getSuperHeroes(this.filter, page, this.itemsPerPage)
+      .getSuperHeroes(this.filter.value!, this.currentPage, this.itemsPerPage)
       .subscribe({
-        next: (response) => {
+        next: (response: PagedResponse<SuperHero>) => {
           this.superHeroes = response.data;
           this.total = response.total;
         },
-        error: (error) => {
+        error: (error: HttpErrorResponse) => {
           console.error('Error fetching heroes', error);
         },
       });

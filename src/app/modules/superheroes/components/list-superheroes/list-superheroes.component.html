@@ -1,12 +1,50 @@
-<mat-form-field appearance="fill" class="w-full pt-4 px-4 pb-0 mb-0">
-  <mat-label>Buscar superhéroes</mat-label>
-  <input type="text" matInput [(ngModel)]="filter" placeholder="Introduce un nombre">
-</mat-form-field>
+<div class="flex flex-col h-screen">
+  <mat-form-field appearance="fill" class="w-full p-4 pb-0">
+    <mat-label>Buscar superhéroes</mat-label>
+    <input
+      type="text"
+      [formControl]="filter"
+      placeholder="Introduce un nombre"
+      matInput
+    />
+  </mat-form-field>
 
-<main class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4 pb-4">
-  <app-super-hero-card *ngFor="let superHero of superHeroes" [superHero]="superHero"></app-super-hero-card>
-</main>
+  <main class="flex-grow overflow-auto p-4 pt-0">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <app-super-hero-card
+        *ngFor="let superHero of superHeroes"
+        [superHero]="superHero"
+      ></app-super-hero-card>
+    </div>
+    <div
+      class="flex flex-col justify-center items-center h-full"
+      *ngIf="superHeroes.length === 0"
+    >
+      <span class="material-icons text-gray-500 text-6xl">search_off</span>
+      <p class="text-gray-500 text-xl mt-2">No se han encontrado superhéroes</p>
+    </div>
+  </main>
 
-<mat-paginator [length]="total" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
-  (page)="loadHeroes($event.pageIndex + 1)">
-</mat-paginator>
+  <div class="flex justify-between items-center px-4 py-3 bg-white shadow-md">
+    <a
+      href="https://github.com/pHachepe/SuperHeroCards"
+      target="_blank"
+      class="flex items-center space-x-2 hover:text-gray-500"
+    >
+      <img
+        src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+        alt="GitHub Logo"
+        class="w-6 h-6"
+      />
+      <span>GitHub Repo</span>
+    </a>
+    <mat-paginator
+      [length]="total"
+      [pageSize]="itemsPerPage"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="loadHeroes($event)"
+      *ngIf="total > 0"
+    >
+    </mat-paginator>
+  </div>
+</div>

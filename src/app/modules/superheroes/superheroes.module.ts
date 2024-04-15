@@ -12,6 +12,7 @@ import { EditSuperheroComponent } from './components/edit-superhero/edit-superhe
 import { ListSuperheroesComponent } from './components/list-superheroes/list-superheroes.component';
 import { SuperHeroCardComponent } from './components/super-hero-card/super-hero-card.component';
 import { SuperheroesRoutingModule } from './superheroes-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SuperheroesRoutingModule } from './superheroes-routing.module';
     MatIconModule,
     MatProgressBarModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatPaginatorModule,
     MatInputModule,
