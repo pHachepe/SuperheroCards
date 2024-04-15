@@ -14,10 +14,12 @@ export class SuperheroService {
   constructor(private http: HttpClient) {}
 
   getSuperHeroes(
-    page: number,
-    limit: number
+    filter: string = '',
+    page: number = 1,
+    limit: number = 10
   ): Observable<PagedResponse<SuperHero>> {
     let params = new HttpParams()
+      .set('name_like', filter)
       .set('_page', String(page))
       .set('_limit', String(limit));
 

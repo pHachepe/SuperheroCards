@@ -1,1 +1,12 @@
-<p>list-superheroes works!</p>
+<mat-form-field appearance="fill" class="w-full pt-4 px-4 pb-0 mb-0">
+  <mat-label>Buscar superhéroes</mat-label>
+  <input type="text" matInput [(ngModel)]="filter" placeholder="Introduce un nombre">
+</mat-form-field>
+
+<main class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4 pb-4">
+  <app-super-hero-card *ngFor="let superHero of superHeroes" [superHero]="superHero"></app-super-hero-card>
+</main>
+
+<mat-paginator [length]="total" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
+  (page)="loadHeroes($event.pageIndex + 1)">
+</mat-paginator>
