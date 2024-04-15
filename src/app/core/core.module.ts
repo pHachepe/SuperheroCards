@@ -1,12 +1,14 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ApiInterceptor } from './interceptors/api.interceptor';
 
 @NgModule({
+  imports: [MatSnackBarModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: ApiInterceptor,
       multi: true,
     },
   ],
