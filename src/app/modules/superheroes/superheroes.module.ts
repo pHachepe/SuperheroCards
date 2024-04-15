@@ -14,6 +14,7 @@ import { SuperHeroCardComponent } from './components/super-hero-card/super-hero-
 import { SuperheroesRoutingModule } from './superheroes-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatPaginatorModule,
     MatInputModule,
     SharedModule,
+    MatButtonModule,
   ],
 })
 export class SuperheroesModule {}

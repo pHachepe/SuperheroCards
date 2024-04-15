@@ -49,4 +49,8 @@ export class ListSuperheroesComponent implements OnInit {
         },
       });
   }
+
+  onAddClick() {
+    throw new Error('Method not implemented.');
+  }
 }

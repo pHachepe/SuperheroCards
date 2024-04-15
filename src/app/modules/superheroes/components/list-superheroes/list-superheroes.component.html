@@ -38,12 +38,17 @@
       />
       <span>GitHub</span>
     </a>
-    <mat-paginator
-      [length]="total"
-      [pageSize]="itemsPerPage"
-      [pageSizeOptions]="[5, 10, 20]"
-      (page)="loadHeroes($event)"
-    >
-    </mat-paginator>
+    <div class="flex items-center space-x-2">
+      <mat-paginator
+        [length]="total"
+        [pageSize]="itemsPerPage"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="loadHeroes($event)"
+      >
+      </mat-paginator>
+      <button mat-fab color="primary" (click)="onAddClick()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
 </div>
