@@ -29,7 +29,7 @@ export class ApiInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse) {
           if (
             event.body &&
-            // event.body.success !== undefined &&
+             event.body.success !== undefined &&
             event.status === 200
           ) {
             this.snackBar.open('Operation Successful', 'Close', {
