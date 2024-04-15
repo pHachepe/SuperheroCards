@@ -6,6 +6,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { PagedResponse } from 'src/app/shared/models/paged-response.model';
 import { SuperHero } from '../../models/superhero.model';
 import { SuperheroService } from '../../services/superhero.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-superheroes',
@@ -18,7 +19,10 @@ export class ListSuperheroesComponent implements OnInit {
   itemsPerPage: number = 10;
   total: number = 0;
 
-  constructor(private superHeroService: SuperheroService) {}
+  constructor(
+    private router: Router,
+    private superHeroService: SuperheroService
+  ) {}
 
   ngOnInit(): void {
     this.filter.valueChanges
@@ -51,6 +55,6 @@ export class ListSuperheroesComponent implements OnInit {
   }
 
   onAddClick() {
-    throw new Error('Method not implemented.');
+    this.router.navigate(['/superheroes/create']);
   }
 }
