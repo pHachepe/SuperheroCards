@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://superheroes-one.vercel.app',
+  apiUrl: 'https:/api-superheroes.vercel.app',
 };
