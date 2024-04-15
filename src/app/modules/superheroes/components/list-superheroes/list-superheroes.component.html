@@ -36,14 +36,13 @@
         alt="GitHub Logo"
         class="w-6 h-6"
       />
-      <span>GitHub Repo</span>
+      <span>GitHub</span>
     </a>
     <mat-paginator
       [length]="total"
       [pageSize]="itemsPerPage"
       [pageSizeOptions]="[5, 10, 20]"
       (page)="loadHeroes($event)"
-      *ngIf="total > 0"
     >
     </mat-paginator>
   </div>
