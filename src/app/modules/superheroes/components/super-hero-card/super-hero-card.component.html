@@ -8,10 +8,42 @@
     class="w-full h-64 object-cover"
     loading="lazy"
   />
+
   <div class="p-4">
-    <h2 class="text-2xl font-bold mb-2 text-center">
+    <h2 class="text-2xl font-bold text-center">
       {{ superHero.name | titlecase }}
+      <mat-icon class="text-lg">{{
+        superHero.appearance.gender | genderIcon
+      }}</mat-icon>
     </h2>
+    <div class="mb-4">
+      <div class="flex items-center mb-1">
+        <mat-icon>group</mat-icon>
+        <span class="font-semibold me-2">Raza:</span>
+        <span class="truncate">{{
+          superHero.appearance.race || "Desconocida"
+        }}</span>
+      </div>
+      <div class="flex items-center mb-1">
+        <mat-icon>height</mat-icon>
+        <span class="font-semibold me-2">Altura:</span>
+        {{
+          superHero.appearance.height[1] !== "0 cm"
+            ? superHero.appearance.height[1]
+            : "Desconocida"
+        }}
+      </div>
+      <div class="flex items-center">
+        <mat-icon>monitor_weight</mat-icon>
+        <span class="font-semibold me-2">Peso:</span>
+        {{
+          superHero.appearance.weight[1] !== "0 kg"
+            ? superHero.appearance.weight[1]
+            : "Desconocido"
+        }}
+      </div>
+    </div>
+
     <div class="power-stats grid grid-cols-2 gap-4">
       <div *ngFor="let stat of powerStats" class="stat-item">
         <div class="flex items-center space-x-2">
