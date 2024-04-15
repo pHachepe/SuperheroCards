@@ -22,16 +22,12 @@ export class ApiInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    this.loadingService.show();
+    setTimeout(() => this.loadingService.show(), 0);
 
     return next.handle(request).pipe(
-      tap((event) => {
+      tap((event: HttpEvent<unknown>) => {
         if (event instanceof HttpResponse) {
-          if (
-            event.body &&
-             event.body.success !== undefined &&
-            event.status === 200
-          ) {
+          if (event.body && event.status === 200) {
             this.snackBar.open('Operation Successful', 'Close', {
               duration: 1000,
             });
@@ -40,11 +36,11 @@ export class ApiInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         this.snackBar.open(`Error: ${error.status} ${error.message}`, 'Close', {
-          duration: 3000,
+          duration: 2000,
         });
         return throwError(() => error);
       }),
-      finalize(() => this.loadingService.hide())
+      finalize(() => setTimeout(() => this.loadingService.hide(), 0))
     );
   }
 }
