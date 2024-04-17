@@ -1,18 +1,20 @@
+import { Component } from '@angular/core';
+
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { PagedResponse } from 'src/app/shared/models/paged-response.model';
 import { Superhero } from '../../models/superhero.model';
 import { SuperheroService } from '../../services/superhero.service';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-list-superheroes',
-  templateUrl: './list-superheroes.component.html',
+  selector: 'app-superhero-list-page',
+  templateUrl: './superhero-list-page.component.html',
 })
-export class ListSuperheroesComponent implements OnInit {
+export class SuperheroListPageComponent implements OnInit {
   superheroes: Superhero[] = [];
   filter = new FormControl('');
   currentPage: number = 1;

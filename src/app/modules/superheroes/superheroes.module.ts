@@ -10,17 +10,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SuperheroCardComponent } from './components/superhero-card/superhero-card.component';
-import { ListSuperheroesComponent } from './containers/list-superheroes/list-superheroes.component';
 import { SuperheroCreatePageComponent } from './containers/superhero-create-page/superhero-create-page.component';
 import { SuperheroEditPageComponent } from './containers/superhero-edit-page/superhero-edit-page.component';
+import { SuperheroListPageComponent } from './containers/superhero-list-page/superhero-list-page.component';
 import { SuperheroesRoutingModule } from './superheroes-routing.module';
 
 @NgModule({
   declarations: [
-    ListSuperheroesComponent,
     SuperheroCardComponent,
     SuperheroCreatePageComponent,
     SuperheroEditPageComponent,
+    SuperheroListPageComponent,
   ],
   imports: [
     CommonModule,
