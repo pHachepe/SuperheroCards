@@ -57,7 +57,7 @@ export class SuperheroListPageComponent implements OnInit {
   }
 
   trackBySuperheroId(index: number, superhero: Superhero): number {
-    return superhero.id;
+    return superhero.id!;
   }
 
   onAddClick() {

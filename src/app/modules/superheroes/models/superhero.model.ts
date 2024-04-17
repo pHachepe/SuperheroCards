@@ -1,12 +1,12 @@
 export interface Superhero {
-  id: number;
+  id?: number;
   name: string;
-  slug: string;
+  slug?: string;
   powerstats: Powerstats;
   appearance: Appearance;
-  biography: Biography;
-  work: Work;
-  connections: Connections;
+  biography?: Biography;
+  work?: Work;
+  connections?: Connections;
   images: Images;
 }
 
@@ -15,8 +15,8 @@ export interface Appearance {
   race: string;
   height: string[];
   weight: string[];
-  eyeColor: string;
-  hairColor: string;
+  eyeColor?: string;
+  hairColor?: string;
 }
 
 export interface Biography {
@@ -35,9 +35,9 @@ export interface Connections {
 }
 
 export interface Images {
-  xs: string;
-  sm: string;
-  md: string;
+  xs?: string;
+  sm?: string;
+  md?: string;
   lg: string;
 }
 
