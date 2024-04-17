@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { PagedResponse } from 'src/app/shared/models/paged-response.model';
 import { environment } from 'src/environments/environment';
-import { SuperHero } from '../models/superhero.model';
+import { Superhero } from '../models/superhero.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,44 +13,44 @@ export class SuperheroService {
 
   constructor(private http: HttpClient) {}
 
-  getSuperHeroes(
+  getSuperheroes(
     filter: string = '',
     page: number = 1,
     limit: number = 10
-  ): Observable<PagedResponse<SuperHero>> {
+  ): Observable<PagedResponse<Superhero>> {
     let params = new HttpParams()
       .set('name_like', filter)
       .set('_page', String(page))
       .set('_limit', String(limit));
 
     return this.http
-      .get<SuperHero[]>(this.apiUrl, { observe: 'response', params })
+      .get<Superhero[]>(this.apiUrl, { observe: 'response', params })
       .pipe(
-        map((response: HttpResponse<SuperHero[]>) => {
+        map((response: HttpResponse<Superhero[]>) => {
           return {
-            data: response.body as SuperHero[],
+            data: response.body as Superhero[],
             total: parseInt(response.headers.get('X-Total-Count') || '0'),
           };
         })
       );
   }
 
-  geSuperHero(id: number): Observable<SuperHero> {
-    return this.http.get<SuperHero>(`${this.apiUrl}/${id}`);
+  geSuperhero(id: number): Observable<Superhero> {
+    return this.http.get<Superhero>(`${this.apiUrl}/${id}`);
   }
 
-  createSuperHero(superhero: SuperHero): Observable<SuperHero> {
-    return this.http.post<SuperHero>(this.apiUrl, superhero);
+  createSuperhero(superhero: Superhero): Observable<Superhero> {
+    return this.http.post<Superhero>(this.apiUrl, superhero);
   }
 
-  updateSuperHero(superhero: SuperHero): Observable<SuperHero> {
-    return this.http.put<SuperHero>(
+  updateSuperhero(superhero: Superhero): Observable<Superhero> {
+    return this.http.put<Superhero>(
       `${this.apiUrl}/${superhero.id}`,
       superhero
     );
   }
 
-  deleteSuperHero(id: number): Observable<void> {
+  deleteSuperhero(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

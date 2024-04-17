@@ -7,7 +7,5 @@ import { LoadingService } from './core/services/loading.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'SuperHeroCards';
-
   constructor(public loadingService: LoadingService) {}
 }

@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { PagedResponse } from 'src/app/shared/models/paged-response.model';
-import { SuperHero } from '../../models/superhero.model';
+import { Superhero } from '../../models/superhero.model';
 import { SuperheroService } from '../../services/superhero.service';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './list-superheroes.component.html',
 })
 export class ListSuperheroesComponent implements OnInit {
-  superHeroes: SuperHero[] = [];
+  superheroes: Superhero[] = [];
   filter = new FormControl('');
   currentPage: number = 1;
   itemsPerPage: number = 10;
@@ -21,7 +21,7 @@ export class ListSuperheroesComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private superHeroService: SuperheroService
+    private superheroService: SuperheroService
   ) {}
 
   ngOnInit(): void {
@@ -29,23 +29,23 @@ export class ListSuperheroesComponent implements OnInit {
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe(() => {
         this.currentPage = 1;
-        this.loadHeroes();
+        this.loadSuperheroes();
       });
 
-    this.loadHeroes();
+    this.loadSuperheroes();
   }
 
-  loadHeroes(event?: PageEvent): void {
+  loadSuperheroes(event?: PageEvent): void {
     if (event) {
       this.currentPage = event.pageIndex + 1;
       this.itemsPerPage = event.pageSize;
     }
 
-    this.superHeroService
-      .getSuperHeroes(this.filter.value!, this.currentPage, this.itemsPerPage)
+    this.superheroService
+      .getSuperheroes(this.filter.value!, this.currentPage, this.itemsPerPage)
       .subscribe({
-        next: (response: PagedResponse<SuperHero>) => {
-          this.superHeroes = response.data;
+        next: (response: PagedResponse<Superhero>) => {
+          this.superheroes = response.data;
           this.total = response.total;
         },
         error: (error: HttpErrorResponse) => {

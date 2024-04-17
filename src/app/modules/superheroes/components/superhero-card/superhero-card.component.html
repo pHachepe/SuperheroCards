@@ -3,17 +3,17 @@
   (click)="navigateToEdit()"
 >
   <img
-    [src]="superHero.images.lg"
-    alt="{{ superHero.name }} Image"
+    [src]="superhero.images.lg"
+    alt="{{ superhero.name }} Image"
     class="w-full h-64 object-cover"
     loading="lazy"
   />
 
   <div class="p-4">
     <h2 class="text-2xl font-bold text-center">
-      {{ superHero.name | titlecase }}
+      {{ superhero.name | titlecase }}
       <mat-icon class="text-lg">{{
-        superHero.appearance.gender | genderIcon
+        superhero.appearance.gender | genderIcon
       }}</mat-icon>
     </h2>
     <div class="mb-4">
@@ -21,15 +21,15 @@
         <mat-icon>group</mat-icon>
         <span class="font-semibold me-2">Raza:</span>
         <span class="truncate">{{
-          superHero.appearance.race || "Desconocida"
+          superhero.appearance.race || "Desconocida"
         }}</span>
       </div>
       <div class="flex items-center mb-1">
         <mat-icon>height</mat-icon>
         <span class="font-semibold me-2">Altura:</span>
         {{
-          superHero.appearance.height[1] !== "0 cm"
-            ? superHero.appearance.height[1]
+          superhero.appearance.height[1] !== "0 cm"
+            ? superhero.appearance.height[1]
             : "Desconocida"
         }}
       </div>
@@ -37,8 +37,8 @@
         <mat-icon>monitor_weight</mat-icon>
         <span class="font-semibold me-2">Peso:</span>
         {{
-          superHero.appearance.weight[1] !== "0 kg"
-            ? superHero.appearance.weight[1]
+          superhero.appearance.weight[1] !== "0 kg"
+            ? superhero.appearance.weight[1]
             : "Desconocido"
         }}
       </div>
