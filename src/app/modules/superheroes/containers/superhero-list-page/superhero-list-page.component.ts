@@ -56,6 +56,10 @@ export class SuperheroListPageComponent implements OnInit {
       });
   }
 
+  trackBySuperheroId(index: number, superhero: Superhero): number {
+    return superhero.id;
+  }
+
   onAddClick() {
     this.router.navigate(['/superheroes/create']);
   }

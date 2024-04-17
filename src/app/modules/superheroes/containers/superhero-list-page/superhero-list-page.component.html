@@ -1,6 +1,7 @@
 <div class="flex flex-col h-screen">
   <mat-form-field appearance="fill" class="w-full p-4 pb-0">
     <mat-label>Buscar Superhéroes</mat-label>
+
     <input
       type="text"
       [formControl]="filter"
@@ -12,10 +13,11 @@
   <main class="flex-grow overflow-auto p-4 pt-0">
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
       <app-superhero-card
-        *ngFor="let superhero of superheroes"
+        *ngFor="let superhero of superheroes; trackBy: trackBySuperheroId"
         [superhero]="superhero"
       ></app-superhero-card>
     </div>
+
     <div
       class="flex flex-col justify-center items-center h-full"
       *ngIf="superheroes.length === 0"
@@ -25,19 +27,7 @@
     </div>
   </main>
 
-  <div class="flex justify-between items-center px-4 py-3 bg-white shadow-md">
-    <a
-      href="https://github.com/pHachepe/SuperheroCards"
-      target="_blank"
-      class="flex items-center space-x-2 hover:text-gray-500"
-    >
-      <img
-        src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-        alt="GitHub Logo"
-        class="w-6 h-6"
-      />
-      <span>GitHub</span>
-    </a>
+  <app-footer>
     <div class="flex items-center space-x-2">
       <mat-paginator
         [length]="total"
@@ -46,9 +36,16 @@
         (page)="loadSuperheroes($event)"
       >
       </mat-paginator>
-      <button mat-fab color="primary" (click)="onAddClick()">
+
+      <button
+        mat-fab
+        color="primary"
+        (click)="onAddClick()"
+        aria-label="Add"
+        title="Añadir Superhéroe"
+      >
         <mat-icon>add</mat-icon>
       </button>
     </div>
-  </div>
+  </app-footer>
 </div>
