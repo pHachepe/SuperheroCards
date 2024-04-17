@@ -1,27 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CreateSuperheroComponent } from './containers/create-superhero/create-superhero.component';
-import { EditSuperheroComponent } from './containers/edit-superhero/edit-superhero.component';
-import { ListSuperheroesComponent } from './containers/list-superheroes/list-superheroes.component';
-import { SuperHeroCardComponent } from './components/super-hero-card/super-hero-card.component';
-import { SuperheroesRoutingModule } from './superheroes-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatButtonModule } from '@angular/material/button';
+import { SuperHeroCardComponent } from './components/super-hero-card/super-hero-card.component';
+import { ListSuperheroesComponent } from './containers/list-superheroes/list-superheroes.component';
+import { SuperheroCreatePageComponent } from './containers/superhero-create-page/superhero-create-page.component';
+import { SuperheroEditPageComponent } from './containers/superhero-edit-page/superhero-edit-page.component';
+import { SuperheroesRoutingModule } from './superheroes-routing.module';
 
 @NgModule({
   declarations: [
     ListSuperheroesComponent,
-    EditSuperheroComponent,
-    CreateSuperheroComponent,
     SuperHeroCardComponent,
+    SuperheroCreatePageComponent,
+    SuperheroEditPageComponent,
   ],
   imports: [
     CommonModule,

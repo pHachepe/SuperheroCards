@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateSuperheroComponent } from './containers/create-superhero/create-superhero.component';
-import { EditSuperheroComponent } from './containers/edit-superhero/edit-superhero.component';
 import { ListSuperheroesComponent } from './containers/list-superheroes/list-superheroes.component';
+import { SuperheroCreatePageComponent } from './containers/superhero-create-page/superhero-create-page.component';
+import { SuperheroEditPageComponent } from './containers/superhero-edit-page/superhero-edit-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
   { path: 'list', component: ListSuperheroesComponent },
-  { path: 'edit/:id', component: EditSuperheroComponent },
-  { path: 'create', component: CreateSuperheroComponent },
+  { path: 'edit/:id', component: SuperheroEditPageComponent },
+  { path: 'create', component: SuperheroCreatePageComponent },
 ];
 
 @NgModule({
