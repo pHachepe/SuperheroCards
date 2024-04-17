@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreateSuperheroComponent } from './components/create-superhero/create-superhero.component';
-import { EditSuperheroComponent } from './components/edit-superhero/edit-superhero.component';
-import { ListSuperheroesComponent } from './components/list-superheroes/list-superheroes.component';
+import { CreateSuperheroComponent } from './containers/create-superhero/create-superhero.component';
+import { EditSuperheroComponent } from './containers/edit-superhero/edit-superhero.component';
+import { ListSuperheroesComponent } from './containers/list-superheroes/list-superheroes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
