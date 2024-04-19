@@ -35,7 +35,7 @@ export class SuperheroService {
       );
   }
 
-  geSuperhero(id: number): Observable<Superhero> {
+  getSuperhero(id: number): Observable<Superhero> {
     return this.http.get<Superhero>(`${this.apiUrl}/${id}`);
   }
 
