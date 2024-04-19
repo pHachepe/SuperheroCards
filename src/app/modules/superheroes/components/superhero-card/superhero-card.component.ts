@@ -25,21 +25,21 @@ export class SuperheroCardComponent {
         icon: 'psychology',
       },
       {
+        name: 'Durabilidad',
+        value: this.superhero.powerstats.durability,
+        icon: 'security',
+      },
+      {
         name: 'Fuerza',
         value: this.superhero.powerstats.strength,
         icon: 'fitness_center',
       },
+      { name: 'Poder', value: this.superhero.powerstats.power, icon: 'bolt' },
       {
         name: 'Velocidad',
         value: this.superhero.powerstats.speed,
         icon: 'forward',
       },
-      {
-        name: 'Durabilidad',
-        value: this.superhero.powerstats.durability,
-        icon: 'security',
-      },
-      { name: 'Poder', value: this.superhero.powerstats.power, icon: 'bolt' },
       {
         name: 'Combate',
         value: this.superhero.powerstats.combat,
