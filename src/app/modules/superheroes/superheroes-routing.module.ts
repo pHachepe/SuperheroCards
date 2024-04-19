@@ -5,10 +5,21 @@ import { SuperheroEditPageComponent } from './containers/superhero-edit-page/sup
 import { SuperheroListPageComponent } from './containers/superhero-list-page/superhero-list-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'list', pathMatch: 'full' },
-  { path: 'create', component: SuperheroCreatePageComponent },
-  { path: 'edit/:id', component: SuperheroEditPageComponent },
-  { path: 'list', component: SuperheroListPageComponent },
+  {
+    path: 'create',
+    component: SuperheroCreatePageComponent,
+    data: { animation: 'CreatePage' },
+  },
+  {
+    path: 'edit/:id',
+    component: SuperheroEditPageComponent,
+    data: { animation: 'EditPage' },
+  },
+  {
+    path: 'list',
+    component: SuperheroListPageComponent,
+    data: { animation: 'ListPage' },
+  },
 ];
 
 @NgModule({
