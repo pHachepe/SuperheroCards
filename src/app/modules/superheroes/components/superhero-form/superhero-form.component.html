@@ -3,137 +3,138 @@
     <!-- Name -->
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput formControlName="name" placeholder="Enter superhero name" />
+      <input
+        matInput
+        formControlName="name"
+        placeholder="Enter superhero name"
+      />
       <mat-error *ngIf="form.controls['name'].errors?.['required']">
         Name is required.
       </mat-error>
     </mat-form-field>
 
-    <!-- Gender -->
-    <mat-form-field appearance="fill">
-      <mat-label>Gender</mat-label>
-      <mat-select formControlName="gender">
-        <mat-option *ngFor="let gender of genders" [value]="gender">{{
-          gender
-          }}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="form.controls['gender'].errors?.['required']">
-        Gender is required.
-      </mat-error>
-    </mat-form-field>
-
-    <!-- Race -->
-    <mat-form-field appearance="fill">
-      <mat-label>Race</mat-label>
-      <input matInput formControlName="race" placeholder="Enter superhero race" />
-      <mat-error *ngIf="form.controls['race'].errors?.['required']">
-        Race is required.
-      </mat-error>
-    </mat-form-field>
-
-    <!-- Image URL -->
-    <mat-form-field appearance="fill">
+    <!-- Image URL-->
+    <mat-form-field appearance="fill" formGroupName="images">
       <mat-label>Image URL</mat-label>
-      <input matInput formControlName="imageUrl" placeholder="Enter image URL (optional)" />
-      <mat-error *ngIf="form.controls['imageUrl'].errors?.['pattern']">
+      <input
+        matInput
+        formControlName="lg"
+        placeholder="Enter image URL (optional)"
+      />
+      <!--<mat-error *ngIf="form.controls['image'].errors?.['pattern']">
         Please enter a valid URL.
-      </mat-error>
+      </mat-error>-->
     </mat-form-field>
 
-    <!-- Height -->
-    <mat-form-field appearance="fill">
-      <mat-label>Height (e.g., 180 cm)</mat-label>
-      <input type="number" matInput formControlName="height" placeholder="Enter height" />
-      <mat-error *ngIf="form.controls['height'].errors?.['required']">
-        Height is required.
-      </mat-error>
-      <mat-error *ngIf="form.controls['height'].errors?.['min'] || form.controls['height'].errors?.['max']">
-        Height must be between 1 and 300 cm.
-      </mat-error>
-    </mat-form-field>
+    <div formGroupName="appearance" class="w-full flex flex-col">
+      <!-- Gender -->
+      <mat-form-field appearance="fill">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option *ngFor="let gender of genders" [value]="gender">{{
+            gender
+          }}</mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="form.get('appearance')!.get('gender')!.errors?.['required']"
+        >
+          Gender is required.
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Weight -->
-    <mat-form-field appearance="fill">
-      <mat-label>Weight (e.g., 75 kg)</mat-label>
-      <input type="number" matInput formControlName="weight" placeholder="Enter weight" />
-      <mat-error *ngIf="form.controls['weight'].errors?.['required']">
-        Weight is required.
-      </mat-error>
-      <mat-error *ngIf="form.controls['weight'].errors?.['min'] || form.controls['weight'].errors?.['max']">
-        Weight must be between 1 and 500 kg.
-      </mat-error>
-    </mat-form-field>
+      <!-- Race -->
+      <mat-form-field appearance="fill">
+        <mat-label>Race</mat-label>
+        <input
+          matInput
+          formControlName="race"
+          placeholder="Enter superhero race"
+        />
+        <mat-error
+          *ngIf="form.get('appearance')!.get('race')!.errors?.['required']"
+        >
+          Race is required.
+        </mat-error>
+      </mat-form-field>
+      <!-- Height -->
+      <mat-form-field appearance="fill">
+        <mat-label>Height (e.g., 180 cm)</mat-label>
+        <input
+          type="number"
+          matInput
+          formControlName="height"
+          placeholder="Enter height"
+        />
+        <mat-error
+          *ngIf="form.get('appearance')!.get('height')!.errors?.['required']"
+        >
+          Height is required.
+        </mat-error>
+        <mat-error
+          *ngIf="form.get('appearance')!.get('height')!.errors?.['min'] || form.get('appearance')!.get('height')!.errors?.['max']"
+        >
+          Height must be greater than 0 and less than 300.
+        </mat-error>
+      </mat-form-field>
 
+      <!-- Weight -->
+      <mat-form-field appearance="fill">
+        <mat-label>Weight (e.g., 75 kg)</mat-label>
+        <input
+          type="number"
+          matInput
+          formControlName="weight"
+          placeholder="Enter weight"
+        />
+        <mat-error
+          *ngIf="form.get('appearance')!.get('weight')!.errors?.['required']"
+        >
+          Weight is required.
+        </mat-error>
+        <mat-error
+          *ngIf="form.get('appearance')!.get('weight')!.errors?.['min'] || form.get('appearance')!.get('weight')!.errors?.['max']"
+        >
+          Weight must be greater than 0 and less than 500.
+        </mat-error>
+      </mat-form-field>
+    </div>
 
-    <!-- Slider for Intelligence -->
-    <mat-card>
-      <mat-card-content class="flex items-center space-x-4">
-        <mat-icon class="self-center align-middle">psychology</mat-icon>
-        <span>Inteligencia</span>
-        <mat-slider min="0" max="100" step="1" thumbLabel tickInterval="10">
-          <input matSliderThumb formControlName="intelligence" />
-        </mat-slider>
-      </mat-card-content>
-    </mat-card>
+    <!-- Powerstats Slider -->
+    <div
+      *ngFor="let slider of sliders"
+      class="w-full"
+      formGroupName="powerstats"
+    >
+      <mat-card>
+        <mat-card-content class="flex">
+          <div class="flex w-full">
+            <div class="w-1/2 flex items-center">
+              <mat-icon>{{ slider.icon }}</mat-icon>
+              <span class="ml-1">{{ slider.name | titlecase }}</span>
+            </div>
 
-    <!-- Slider for Strength -->
-    <mat-card>
-      <mat-card-content class="flex items-center space-x-4">
-        <mat-icon class="self-center align-middle">fitness_center</mat-icon>
-        <span>Fuerza</span>
-        <mat-slider min="0" max="100" step="1" thumbLabel tickInterval="10">
-          <input matSliderThumb formControlName="strength" />
-        </mat-slider>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Slider for Speed -->
-    <mat-card>
-      <mat-card-content class="flex items-center space-x-4">
-        <mat-icon class="self-center align-middle">rocket_launch</mat-icon>
-        <span>Velocidad</span>
-        <mat-slider min="0" max="100" step="1" thumbLabel tickInterval="10">
-          <input matSliderThumb formControlName="speed" />
-        </mat-slider>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Slider for Durability -->
-    <mat-card>
-      <mat-card-content class="flex items-center space-x-4">
-        <mat-icon class="self-center align-middle">security</mat-icon>
-        <span>Durabilidad</span>
-        <mat-slider min="0" max="100" step="1" thumbLabel tickInterval="10">
-          <input matSliderThumb formControlName="durability" />
-        </mat-slider>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Slider for Power -->
-    <mat-card>
-      <mat-card-content class="flex items-center space-x-4">
-        <mat-icon class="self-center align-middle">bolt</mat-icon>
-        <span>Poder</span>
-        <mat-slider min="0" max="100" step="1" thumbLabel tickInterval="10">
-          <input matSliderThumb formControlName="power" />
-        </mat-slider>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Slider for Combat -->
-    <mat-card>
-      <mat-card-content class="flex items-center space-x-4">
-        <mat-icon class="self-center align-middle">sports_martial_arts</mat-icon>
-        <span>Combate</span>
-        <mat-slider min="0" max="100" step="1" thumbLabel tickInterval="10">
-          <input matSliderThumb formControlName="combat" />
-        </mat-slider>
-      </mat-card-content>
-    </mat-card>
+            <mat-slider
+              class="w-1/2 flex items-center"
+              min="0"
+              max="100"
+              step="1"
+              thumbLabel
+              tickInterval="10"
+              ><input matSliderThumb formControlName="{{ slider.name }}" />
+            </mat-slider>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 
   <div class="flex justify-end">
-    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
       Submit
     </button>
   </div>

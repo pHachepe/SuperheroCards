@@ -1,80 +1,102 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Superhero } from '../../models/superhero.model';
 
 @Component({
   selector: 'app-superhero-form',
   templateUrl: './superhero-form.component.html',
 })
-export class SuperheroFormComponent {
-  @Input() superhero?: Superhero;
+export class SuperheroFormComponent implements OnInit {
+  @Input() superhero$!: Observable<Superhero>;
   @Output() formSubmit = new EventEmitter<Superhero>();
 
   form: FormGroup;
   genders = ['Male', 'Female', 'Other'];
+  sliders = [
+    { name: 'intelligence', icon: 'psychology' },
+    { name: 'durability', icon: 'security' },
+    { name: 'strength', icon: 'fitness_center' },
+    { name: 'power', icon: 'bolt' },
+    { name: 'speed', icon: 'rocket_launch' },
+    { name: 'combat', icon: 'sports_martial_arts' },
+  ];
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      gender: ['', Validators.required],
-      race: ['', Validators.required],
-      height: [
-        '',
-        [Validators.required, Validators.min(1), Validators.max(300)],
-      ],
-      weight: [
-        '',
-        [Validators.required, Validators.min(1), Validators.max(500)],
-      ],
-      imageUrl: [
-        '',
-        Validators.pattern(
+      appearance: this.fb.group({
+        height: [
+          '',
+          [Validators.required, Validators.min(1), Validators.max(300)],
+        ],
+        weight: [
+          '',
+          [Validators.required, Validators.min(1), Validators.max(500)],
+        ],
+        gender: ['', Validators.required],
+        race: ['', Validators.required],
+      }),
+      images: this.fb.group({
+        lg: [
+          '',
+          /*Validators.pattern(
           /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
-        ),
-      ],
-      intelligence: [
-        0,
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      strength: [
-        0,
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      speed: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
-      durability: [
-        0,
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      power: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
-      combat: [
-        0,
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
+        ),*/
+        ],
+      }),
+      powerstats: this.fb.group({
+        intelligence: [
+          0,
+          [Validators.required, Validators.min(0), Validators.max(100)],
+        ],
+        strength: [
+          0,
+          [Validators.required, Validators.min(0), Validators.max(100)],
+        ],
+        speed: [
+          0,
+          [Validators.required, Validators.min(0), Validators.max(100)],
+        ],
+        durability: [
+          0,
+          [Validators.required, Validators.min(0), Validators.max(100)],
+        ],
+        power: [
+          0,
+          [Validators.required, Validators.min(0), Validators.max(100)],
+        ],
+        combat: [
+          0,
+          [Validators.required, Validators.min(0), Validators.max(100)],
+        ],
+      }),
     });
   }
 
   ngOnInit(): void {
-    if (this.superhero) {
-      this.form.patchValue({
-        name: this.superhero.name,
-        gender: this.superhero.appearance.gender,
-        race: this.superhero.appearance.race,
-        height: this.superhero.appearance.height[0],
-        weight: this.superhero.appearance.weight[0],
-        imageUrl: this.superhero.images.lg,
-        intelligence: this.superhero.powerstats.intelligence,
-        strength: this.superhero.powerstats.strength,
-        speed: this.superhero.powerstats.speed,
-        durability: this.superhero.powerstats.durability,
-        power: this.superhero.powerstats.power,
-        combat: this.superhero.powerstats.combat,
-      });
-    }
+    this.superhero$.subscribe((superhero) => {
+      if (superhero) {
+        this.initializeForm(superhero);
+      }
+    });
   }
 
-  onSubmit() {
+  initializeForm(superhero: Superhero): void {
+    this.form.patchValue({
+      ...superhero,
+      appearance: {
+        ...superhero.appearance,
+        height: parseInt(superhero.appearance.height[1], 10),
+        weight: parseInt(superhero.appearance.weight[1], 10),
+      },
+      image: superhero.images.lg,
+    });
+  }
+
+  onSubmit(): void {
     if (this.form.valid) {
-      this.formSubmit.emit(this.form.value as Superhero);
+      console.log('Form Data:', this.form.value);
     }
   }
 }
