@@ -6,6 +6,11 @@ import { SuperheroListPageComponent } from './containers/superhero-list-page/sup
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'list',
+    pathMatch: 'full',
+  },
+  {
     path: 'create',
     component: SuperheroCreatePageComponent,
     data: { animation: 'CreatePage' },

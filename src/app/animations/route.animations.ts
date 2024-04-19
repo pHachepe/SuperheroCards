@@ -7,9 +7,8 @@ import {
   group,
 } from '@angular/animations';
 
-export const modernSlideFadeAnimation = trigger('routeAnimations', [
+export const slideFadeAnimation = trigger('routeAnimations', [
   transition('* <=> *', [
-    style({ position: 'relative' }),
     query(
       ':enter, :leave',
       [
@@ -22,7 +21,7 @@ export const modernSlideFadeAnimation = trigger('routeAnimations', [
       ],
       { optional: true }
     ),
-    query(':enter', [style({ opacity: 0, transform: 'scale(1.05)' })], {
+    query(':enter', [style({ opacity: 0, transform: 'translateX(100%)' })], {
       optional: true,
     }),
     group([
@@ -30,8 +29,8 @@ export const modernSlideFadeAnimation = trigger('routeAnimations', [
         ':leave',
         [
           animate(
-            '0.5s ease-out',
-            style({ opacity: 0, transform: 'scale(0.95)' })
+            '700ms ease-out',
+            style({ opacity: 0, transform: 'translateX(-100%)' })
           ),
         ],
         { optional: true }
@@ -40,8 +39,8 @@ export const modernSlideFadeAnimation = trigger('routeAnimations', [
         ':enter',
         [
           animate(
-            '0.5s 0.3s ease-out',
-            style({ opacity: 1, transform: 'scale(1)' })
+            '700ms ease-out',
+            style({ opacity: 1, transform: 'translateX(0)' })
           ),
         ],
         { optional: true }
