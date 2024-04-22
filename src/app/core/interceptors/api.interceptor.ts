@@ -27,7 +27,7 @@ export class ApiInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       tap((event: HttpEvent<unknown>) => {
         if (event instanceof HttpResponse) {
-          if (event.body && event.status === 200) {
+          if (event.body && event.status === 200 && request.method !== 'GET') {
             this.snackBar.open('Operation Successful', 'Close', {
               duration: 1000,
             });
