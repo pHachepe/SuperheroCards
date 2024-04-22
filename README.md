@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
 
+# GitHub de la API:
+
+https://github.com/pHachepe/API-SuperHeroes
+
 # Pendiente:
 
 1. Test
