@@ -3,13 +3,15 @@
   class="bg-white overflow-hidden shadow-lg transform transition duration-300 ease-in-out hover:scale-105 cursor-pointer rounded-b-xl"
   (click)="navigateToEdit()"
 >
-  <img
-    [src]="superhero.images.lg"
-    alt="{{ superhero.name }} Image"
-    class="w-full h-64 object-cover"
-    loading="lazy"
-    (error)="handleImageError($event)"
-  />
+  <div class="flex justify-center">
+    <img
+      [src]="superhero.images.lg"
+      alt="{{ superhero.name }} Image"
+      class="w-full h-64 object-cover"
+      loading="lazy"
+      (error)="handleImageError($event)"
+    />
+  </div>
 
   <div class="p-4">
     <h2
