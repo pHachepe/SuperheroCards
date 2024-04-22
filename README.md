@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
 
+# Pendiente:
+
+1. Test
+2. Constantes y números mágicos
+3. Terminar de componetizar
+4. Hacer README.md
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
