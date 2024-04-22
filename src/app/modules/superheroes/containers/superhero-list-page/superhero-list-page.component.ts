@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
-
 import { HttpErrorResponse } from '@angular/common/http';
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { PagedResponse } from 'src/app/shared/models/paged-response.model';
 import { Superhero } from '../../models/superhero.model';
@@ -23,28 +21,36 @@ export class SuperheroListPageComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private superheroService: SuperheroService
   ) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params: Params) => {
+      const page = params['page'] ? Number(params['page']) : 1;
+      const pageSize = params['pageSize']
+        ? Number(params['pageSize'])
+        : this.itemsPerPage;
+      const filterValue = params['filter'] || '';
+
+      this.filter.setValue(filterValue, { emitEvent: false });
+      this.currentPage = page;
+      this.itemsPerPage = pageSize;
+
+      this.loadSuperheroes();
+    });
+
     this.filter.valueChanges
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe(() => {
         this.currentPage = 1;
-        this.loadSuperheroes();
+        this.updateQueryParams();
       });
-
-    this.loadSuperheroes();
   }
 
-  loadSuperheroes(event?: PageEvent): void {
-    if (event) {
-      this.currentPage = event.pageIndex + 1;
-      this.itemsPerPage = event.pageSize;
-    }
-
+  loadSuperheroes(): void {
     this.superheroService
-      .getSuperheroes(this.filter.value!, this.currentPage, this.itemsPerPage)
+      .getSuperheroes(this.filter!.value!, this.currentPage, this.itemsPerPage)
       .subscribe({
         next: (response: PagedResponse<Superhero>) => {
           this.superheroes = response.data;
@@ -54,6 +60,24 @@ export class SuperheroListPageComponent implements OnInit {
           console.error('Error fetching heroes', error);
         },
       });
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex + 1;
+    this.itemsPerPage = event.pageSize;
+    this.updateQueryParams();
+  }
+
+  updateQueryParams(): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        filter: this.filter.value || null,
+        page: this.currentPage,
+        pageSize: this.itemsPerPage,
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   trackBySuperheroId(index: number, superhero: Superhero): number {

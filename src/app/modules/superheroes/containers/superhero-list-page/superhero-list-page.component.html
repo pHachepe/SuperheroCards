@@ -1,18 +1,21 @@
-<div class="flex flex-col h-screen">
-  <mat-form-field appearance="fill" class="w-full p-4 pb-0">
-    <mat-label>Buscar Superhéroes</mat-label>
-
+<div class="flex flex-col min-h-screen">
+  <mat-form-field
+    appearance="fill"
+    class="w-full p-4 pb-0 sticky top-0 z-10 bg-[#1F2937]"
+  >
+    <mat-label>Search Superheroes</mat-label>
     <input
       type="text"
       [formControl]="filter"
-      placeholder="Introduce un nombre"
+      placeholder="Enter superhero name, e.g., Batman"
       matInput
     />
   </mat-form-field>
 
-  <main class="flex-grow overflow-auto p-4 pt-0">
+  <main class="flex flex-col flex-grow relative overflow-auto p-4 pt-0">
     <div
       class="gap-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8"
+      *ngIf="superheroes.length > 0; else noResultsTemplate"
     >
       <app-superhero-card
         *ngFor="let superhero of superheroes; trackBy: trackBySuperheroId"
@@ -20,31 +23,34 @@
       ></app-superhero-card>
     </div>
 
-    <div
-      class="flex flex-col justify-center items-center h-full"
-      *ngIf="superheroes.length === 0"
-    >
-      <span class="material-icons text-gray-500 text-6xl">search_off</span>
-      <p class="text-gray-500 text-xl mt-2">No se han encontrado superhéroes</p>
-    </div>
+    <ng-template #noResultsTemplate>
+      <div
+        class="flex flex-col justify-center items-center w-full absolute inset-0"
+      >
+        <span class="material-icons text-gray-500 text-6xl">search_off</span>
+        <p class="text-gray-500 text-xl mt-2">
+          No se han encontrado superhéroes
+        </p>
+      </div>
+    </ng-template>
   </main>
 
-  <app-footer>
+  <app-footer class="sticky bottom-0 z-10">
     <div class="flex items-center space-x-2">
       <mat-paginator
         [length]="total"
         [pageSize]="itemsPerPage"
         [pageSizeOptions]="[30, 60, 90]"
-        (page)="loadSuperheroes($event)"
-      >
-      </mat-paginator>
+        [pageIndex]="currentPage - 1"
+        (page)="onPageChange($event)"
+      ></mat-paginator>
 
       <button
         mat-fab
         color="primary"
         (click)="onAddClick()"
         aria-label="Add"
-        title="Añadir Superhéroe"
+        title="Add Superhero"
       >
         <mat-icon>add</mat-icon>
       </button>
