@@ -52,4 +52,23 @@ export class SuperheroEditPageComponent implements OnInit {
         }
       });
   }
+
+  deleteSuperhero(id: number): void {
+    this.superheroService
+      .deleteSuperhero(id)
+      .pipe(
+        take(1),
+        catchError((error) => {
+          console.error('Failed to delete superhero:', error);
+          return of(null);
+        })
+      )
+      .subscribe((result) => {
+        if (result) {
+          this.router.navigate(['/superheroes']);
+        } else {
+          console.error('Delete failed due to server error.');
+        }
+      });
+  }
 }
