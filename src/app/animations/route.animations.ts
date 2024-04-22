@@ -9,21 +9,6 @@ import {
 
 export const slideFadeAnimation = trigger('routeAnimations', [
   transition('* <=> *', [
-    query(
-      ':enter, :leave',
-      [
-        style({
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-        }),
-      ],
-      { optional: true }
-    ),
-    query(':enter', [style({ opacity: 0, transform: 'translateX(100%)' })], {
-      optional: true,
-    }),
     group([
       query(
         ':leave',
