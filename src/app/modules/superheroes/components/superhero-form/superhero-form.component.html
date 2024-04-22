@@ -6,7 +6,8 @@
         <mat-label>Name</mat-label>
         <input
           matInput
-          formControlName="name"
+          [value]="form.controls['name'].value | uppercase"
+          (input)="onNameInput($event)"
           placeholder="Enter superhero name"
         />
         <mat-error *ngIf="form.controls['name'].errors?.['required']">
@@ -142,15 +143,17 @@
     </mat-grid-tile>
   </mat-grid-list>
   <div class="flex justify-between mt-4 p-2">
-    <button
-      *ngIf="superhero?.id"
-      type="button"
-      mat-raised-button
-      color="warn"
-      (click)="onDelete()"
-    >
-      Delete
-    </button>
+    <div class="flex-grow">
+      <button
+        *ngIf="superhero?.id"
+        type="button"
+        mat-raised-button
+        color="warn"
+        (click)="onDelete()"
+      >
+        Delete
+      </button>
+    </div>
     <button
       mat-raised-button
       color="primary"

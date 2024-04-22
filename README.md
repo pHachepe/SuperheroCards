@@ -6,8 +6,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 1. Test
 2. Constantes y números mágicos
-3. Terminar de componetizar
-4. Hacer README.md
+3. Mejorar responsividad
+4. Terminar de componetizar filtro, etc.
+5. Hacer README.md
 
 ## Development server
 

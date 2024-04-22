@@ -97,6 +97,11 @@ export class SuperheroFormComponent implements OnInit {
     });
   }
 
+  onNameInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.form.controls['name'].setValue(input.value);
+  }
+
   onSubmit() {
     if (this.form.valid) {
       const formValue = this.form.value;
