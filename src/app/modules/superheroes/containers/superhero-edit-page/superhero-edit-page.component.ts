@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { catchError, switchMap, take } from 'rxjs/operators';
 import { Superhero } from '../../models/superhero.model';
 import { SuperheroService } from '../../services/superhero.service';
 
@@ -20,7 +20,7 @@ export class SuperheroEditPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.superhero$ = this.route.paramMap.pipe(
-      switchMap((params) => {
+      switchMap((params: ParamMap) => {
         const id = parseInt(params.get('id') || '', 10);
         if (!id && !history.state.superhero) {
           console.error('Invalid ID: Loading superhero failed.');
@@ -32,5 +32,24 @@ export class SuperheroEditPageComponent implements OnInit {
           : this.superheroService.getSuperhero(id);
       })
     );
+  }
+
+  updateSuperhero(event: Superhero): void {
+    this.superheroService
+      .updateSuperhero(event)
+      .pipe(
+        take(1),
+        catchError((error) => {
+          console.error('Failed to update superhero:', error);
+          return of(null);
+        })
+      )
+      .subscribe((result) => {
+        if (result) {
+          this.router.navigate(['/superheroes']);
+        } else {
+          console.error('Update failed due to server error.');
+        }
+      });
   }
 }
