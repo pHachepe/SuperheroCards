@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 import { Superhero } from '../../models/superhero.model';
 
 @Component({
@@ -9,7 +11,8 @@ import { Superhero } from '../../models/superhero.model';
 })
 export class SuperheroFormComponent implements OnInit {
   @Input() superhero$!: Observable<Superhero> | null;
-  @Output() formSubmit = new EventEmitter<Superhero>();
+  @Output() save = new EventEmitter<Superhero>();
+  @Output() delete = new EventEmitter<number>();
   superhero: Partial<Superhero> = {}; // Esto se usa solo para no perder los valores que no tiene el formulario
 
   form: FormGroup;
@@ -23,7 +26,7 @@ export class SuperheroFormComponent implements OnInit {
     { name: 'combat', icon: 'sports_martial_arts' },
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, public dialog: MatDialog) {
     const validImageURL =
       '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*/?.*.(jpg|webp|png|bmp|svg))$';
 
@@ -113,8 +116,23 @@ export class SuperheroFormComponent implements OnInit {
         },
       };
 
-      this.formSubmit.emit(newSuperhero);
+      this.save.emit(newSuperhero);
     }
+  }
+
+  onDelete() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Confirm Deletion',
+        message: 'Are you sure you want to delete this superhero?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirm: boolean) => {
+      if (confirm && this.superhero.id) {
+        this.delete.emit(this.superhero.id);
+      }
+    });
   }
 
   trackByPowerStatName(index: number, item: { name: string }) {
