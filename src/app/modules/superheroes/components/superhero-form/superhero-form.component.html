@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-grid-list cols="4" rowHeight="2:1">
+  <mat-grid-list [cols]="getNumberOfColumns()" rowHeight="2:1">
     <!-- Name -->
     <mat-grid-tile colspan="2">
       <mat-form-field appearance="fill" class="w-full p-2">

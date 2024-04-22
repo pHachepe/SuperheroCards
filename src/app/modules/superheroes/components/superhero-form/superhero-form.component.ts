@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -146,5 +153,18 @@ export class SuperheroFormComponent implements OnInit {
 
   trackByGender(index: number, item: string) {
     return item;
+  }
+
+  public getNumberOfColumns(): number {
+    if (window.innerWidth < 768) {
+      return 2;
+    } else {
+      return 4;
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    // Forma rápida de actualizar el número de columnas para dar cierta responsividad
   }
 }

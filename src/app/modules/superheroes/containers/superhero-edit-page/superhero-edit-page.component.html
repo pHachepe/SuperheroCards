@@ -1,6 +1,6 @@
-<div class="flex flex-col h-screen">
-  <main class="flex-grow flex justify-center items-center overflow-auto">
-    <div class="w-full max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6">
+<div class="flex flex-col min-h-screen">
+  <main class="flex-grow flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
       <h1 class="text-2xl font-bold text-center mb-4">Superhero Form</h1>
       <app-superhero-form
         [superhero$]="superhero$"
@@ -9,6 +9,4 @@
       ></app-superhero-form>
     </div>
   </main>
-
-  <app-footer></app-footer>
 </div>
