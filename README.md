@@ -1,10 +1,6 @@
 # SuperheroCards
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
-
-# GitHub de la API:
-
-https://github.com/pHachepe/API-SuperHeroes
+## See it in: https://super-hero-cards.vercel.app
 
 # Pendiente:
 
@@ -13,6 +9,12 @@ https://github.com/pHachepe/API-SuperHeroes
 3. Mejorar responsividad
 4. Terminar de componetizar filtro, etc.
 5. Hacer README.md
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
+
+# GitHub de la API:
+
+https://github.com/pHachepe/API-SuperHeroes
 
 ## Development server
 
