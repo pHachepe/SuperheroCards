@@ -26,7 +26,7 @@
         <mat-icon>group</mat-icon>
         <span class="font-semibold me-2">Race:</span>
         <span class="truncate">{{
-          superhero.appearance.race || "Desconocida"
+          superhero.appearance.race || "Unknown"
         }}</span>
       </div>
 
@@ -36,7 +36,7 @@
         {{
           superhero.appearance.height[1] !== "0 cm"
             ? superhero.appearance.height[1]
-            : "Desconocida"
+            : "Unknown"
         }}
       </div>
 
@@ -46,19 +46,18 @@
         {{
           superhero.appearance.weight[1] !== "0 kg"
             ? superhero.appearance.weight[1]
-            : "Desconocido"
+            : "Unknown"
         }}
       </div>
     </div>
 
-    <div class="power-stats grid grid-cols-2 gap-4">
-      <div
-        *ngFor="let stat of powerStats; trackBy: trackByPowerStatName"
-        class="stat-item"
-      >
-        <div class="flex items-center space-x-2">
+    <div class="grid grid-cols-2 gap-4">
+      <div *ngFor="let stat of powerStats; trackBy: trackByPowerStatName">
+        <div class="flex items-center">
           <mat-icon class="text-base">{{ stat.icon }}</mat-icon>
-          <span class="font-medium text-sm">{{ stat.name }}</span>
+          <span class="font-medium text-sm truncate flex-grow">{{
+            stat.name
+          }}</span>
         </div>
 
         <div class="w-full bg-gray-200 rounded-full">
