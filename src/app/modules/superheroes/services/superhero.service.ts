@@ -16,7 +16,7 @@ export class SuperheroService {
   getSuperheroes(
     filter: string = '',
     page: number = 1,
-    limit: number = 10
+    limit: number = 30
   ): Observable<PagedResponse<Superhero>> {
     let params = new HttpParams()
       .set('name_like', filter)
