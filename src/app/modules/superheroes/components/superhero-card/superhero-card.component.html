@@ -1,51 +1,71 @@
 <article
+  matRipple
   class="bg-white overflow-hidden shadow-lg transform transition duration-300 ease-in-out hover:scale-105 cursor-pointer rounded-b-xl"
-  (click)="navigateToEdit()">
-  <img [src]="superhero.images.lg" alt="{{ superhero.name }} Image" class="w-full h-64 object-cover" loading="lazy" />
+  (click)="navigateToEdit()"
+>
+  <img
+    [src]="superhero.images.lg"
+    alt="{{ superhero.name }} Image"
+    class="w-full h-64 object-cover"
+    loading="lazy"
+    (error)="handleImageError($event)"
+  />
 
   <div class="p-4">
-    <h2 class="text-2xl font-bold text-center">
-      {{ superhero.name | titlecase }}
-      <mat-icon class="text-lg">{{superhero.appearance.gender | genderIcon}}</mat-icon>
+    <h2
+      class="text-2xl font-bold text-center flex justify-center items-center overflow-hidden"
+    >
+      <span class="truncate flex-grow">{{ superhero.name | titlecase }}</span>
+      <mat-icon class="text-lg">
+        {{ superhero.appearance.gender | genderIcon }}
+      </mat-icon>
     </h2>
 
     <div class="mb-4">
       <div class="flex items-center mb-1">
         <mat-icon>group</mat-icon>
-        <span class="font-semibold me-2">Raza:</span>
-        <span class="truncate">{{superhero.appearance.race || "Desconocida"}}</span>
+        <span class="font-semibold me-2">Race:</span>
+        <span class="truncate">{{
+          superhero.appearance.race || "Desconocida"
+        }}</span>
       </div>
 
       <div class="flex items-center mb-1">
         <mat-icon>height</mat-icon>
-        <span class="font-semibold me-2">Altura:</span>
+        <span class="font-semibold me-2">Height:</span>
         {{
-        superhero.appearance.height[1] !== "0 cm"
-        ? superhero.appearance.height[1]
-        : "Desconocida"
+          superhero.appearance.height[1] !== "0 cm"
+            ? superhero.appearance.height[1]
+            : "Desconocida"
         }}
       </div>
 
       <div class="flex items-center">
         <mat-icon>monitor_weight</mat-icon>
-        <span class="font-semibold me-2">Peso:</span>
+        <span class="font-semibold me-2">Weight:</span>
         {{
-        superhero.appearance.weight[1] !== "0 kg"
-        ? superhero.appearance.weight[1]
-        : "Desconocido"
+          superhero.appearance.weight[1] !== "0 kg"
+            ? superhero.appearance.weight[1]
+            : "Desconocido"
         }}
       </div>
     </div>
 
     <div class="power-stats grid grid-cols-2 gap-4">
-      <div *ngFor="let stat of powerStats" class="stat-item">
+      <div
+        *ngFor="let stat of powerStats; trackBy: trackByPowerStatName"
+        class="stat-item"
+      >
         <div class="flex items-center space-x-2">
           <mat-icon class="text-base">{{ stat.icon }}</mat-icon>
           <span class="font-medium text-sm">{{ stat.name }}</span>
         </div>
 
         <div class="w-full bg-gray-200 rounded-full">
-          <div class="bg-blue-500 h-2 rounded-full" [style.width]="stat.value + '%'"></div>
+          <div
+            class="bg-blue-500 h-2 rounded-full"
+            [style.width]="stat.value + '%'"
+          ></div>
         </div>
       </div>
     </div>

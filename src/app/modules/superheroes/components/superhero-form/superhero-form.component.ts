@@ -8,12 +8,13 @@ import { Superhero } from '../../models/superhero.model';
   templateUrl: './superhero-form.component.html',
 })
 export class SuperheroFormComponent implements OnInit {
-  @Input() superhero$!: Observable<Superhero>;
+  @Input() superhero$!: Observable<Superhero> | null;
   @Output() formSubmit = new EventEmitter<Superhero>();
+  superhero: Partial<Superhero> = {}; // Esto se usa solo para no perder los valores que no tiene el formulario
 
   form: FormGroup;
   genders = ['Male', 'Female', 'Other'];
-  sliders = [
+  powerStats = [
     { name: 'intelligence', icon: 'psychology' },
     { name: 'durability', icon: 'security' },
     { name: 'strength', icon: 'fitness_center' },
@@ -23,6 +24,9 @@ export class SuperheroFormComponent implements OnInit {
   ];
 
   constructor(private fb: FormBuilder) {
+    const validImageURL =
+      '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*/?.*.(jpg|webp|png|bmp|svg))$';
+
     this.form = this.fb.group({
       name: ['', Validators.required],
       appearance: this.fb.group({
@@ -38,12 +42,7 @@ export class SuperheroFormComponent implements OnInit {
         race: ['', Validators.required],
       }),
       images: this.fb.group({
-        lg: [
-          '',
-          /*Validators.pattern(
-          /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
-        ),*/
-        ],
+        lg: ['', Validators.pattern(validImageURL)],
       }),
       powerstats: this.fb.group({
         intelligence: [
@@ -75,11 +74,12 @@ export class SuperheroFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.superhero$.subscribe((superhero) => {
-      if (superhero) {
+    if (this.superhero$) {
+      this.superhero$.subscribe((superhero: Superhero) => {
+        this.superhero = superhero as Superhero;
         this.initializeForm(superhero);
-      }
-    });
+      });
+    }
   }
 
   initializeForm(superhero: Superhero): void {
@@ -94,9 +94,34 @@ export class SuperheroFormComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.form.valid) {
-      console.log('Form Data:', this.form.value);
+      const formValue = this.form.value;
+
+      const newSuperhero: Superhero = {
+        ...this.superhero,
+        ...formValue,
+        appearance: {
+          ...this.superhero.appearance,
+          ...formValue.appearance,
+          height: ['', formValue.appearance.height], // Store as array
+          weight: ['', formValue.appearance.weight], // Store as array
+        },
+        images: {
+          ...this.superhero.images,
+          ...formValue.images,
+        },
+      };
+
+      this.formSubmit.emit(newSuperhero);
     }
+  }
+
+  trackByPowerStatName(index: number, item: { name: string }) {
+    return item.name;
+  }
+
+  trackByGender(index: number, item: string) {
+    return item;
   }
 }
