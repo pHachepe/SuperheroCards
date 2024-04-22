@@ -18,7 +18,7 @@ export class SuperheroListPageComponent implements OnInit {
   superheroes: Superhero[] = [];
   filter = new FormControl('');
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 30;
   total: number = 0;
 
   constructor(

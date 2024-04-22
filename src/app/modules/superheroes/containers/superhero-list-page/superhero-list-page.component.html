@@ -11,7 +11,9 @@
   </mat-form-field>
 
   <main class="flex-grow overflow-auto p-4 pt-0">
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+    <div
+      class="gap-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8"
+    >
       <app-superhero-card
         *ngFor="let superhero of superheroes; trackBy: trackBySuperheroId"
         [superhero]="superhero"
@@ -32,7 +34,7 @@
       <mat-paginator
         [length]="total"
         [pageSize]="itemsPerPage"
-        [pageSizeOptions]="[5, 10, 20]"
+        [pageSizeOptions]="[30, 60, 90]"
         (page)="loadSuperheroes($event)"
       >
       </mat-paginator>
